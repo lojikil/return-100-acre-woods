@@ -5,7 +5,7 @@
 
 ---
 
-# `finger lojikil` 
+# `$ finger lojikil`
 
 ```
 [lojikil.com]
@@ -84,6 +84,55 @@ Life has more color now... even if it's meaningless...
 
 ---
 
+# when I said "security, I meant...
+
+- design +
+- denotation +
+- formalized & verified model +
+- centralized security controls +
+- decentralized implementation ==
+- "secure"
+
+<!--
+
+when I said "security" previously, I really did mean this...
+
+-->
+---
+
+# now when I say security...
+
+- Not much has changed
+
+![Serenity Now!](security-now.png)
+
+<!--
+
+Now I'm actually working in the space that I had previously spoken about
+
+There are many things outside the realm of what we do, both for security and correctness,
+but we work in the intersection of the two, and it's quite nice
+
+-->
+
+---
+
+# let's update ourselves
+
+![Eeyore](ToBeeyore.png)
+
+<!--
+
+So given that I now work at a place that specializes in this sort of correctness, things
+are... better... right?
+
+Also, I love writing these notes to myself, because I know I will ignore them and
+likely no one else will read them. It's the coup de grace of notes really
+
+-->
+
+---
+
 # formal tools won't save you
 
 2016
@@ -94,6 +143,8 @@ Life has more color now... even if it's meaningless...
   - Eiffel, Sather, Lissac, any other DBC language there
   - TLA+, ACL2, &c were also alive
   - Ada has been around since forever
+
+<!-- these were the sorts of tools I was seeing & partially using in 2016... -->
 
 ---
 
@@ -109,8 +160,9 @@ Life has more color now... even if it's meaningless...
 # a formal aside
 
 - JML is > 20 years old (first specs & such from 1999)
-- Multiple compiler support
+- multiple compiler support it
 - industry standard...
+- "just" Hoare logic
 - ... with large, longitudinal case studies...
 - ... virtually unused
 
@@ -130,8 +182,57 @@ Life has more color now... even if it's meaningless...
 
 - maybe talk about specification vs verification
 - talk about the types of things we see tested...
+- how tests are starting to work...
 
 -->
+
+---
+# formal in 2019
+
+```python
+contract_src="""
+contract Adder {
+    function incremented(uint value) public
+    returns (uint){
+        if (value == 1)
+            revert();
+        return value + 1;
+    }
+}
+"""
+# ...
+value = m.make_symbolic_value()
+
+contract_account.incremented(value)
+# ...
+for state in m.ready_states:
+    print("can value be 1? {}".format(
+        state.can_be_true(value == 1)))
+```
+
+<!--
+
+- so here we have a simple example of a reduced Manticore script
+- Manticore will generate all states within a program
+- THIS IS SUPER ACCESSIBLE! basically anyone with python experience can do this
+-->
+
+---
+
+# formal in 2019
+
+<!--
+
+- diagram of paths
+- talk about state explosion
+- size of analysis vs path explosion
+- average size of contracts
+
+-->
+
+---
+
+# fuzzing won't save you
 
 ---
 
