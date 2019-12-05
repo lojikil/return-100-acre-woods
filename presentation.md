@@ -221,6 +221,8 @@ for state in m.ready_states:
 
 # formal in 2019
 
+![state search in symbolic execution](statesearch.png)
+
 <!--
 
 - diagram of paths
@@ -229,7 +231,15 @@ for state in m.ready_states:
 - average size of contracts
 
 -->
+---
 
+# formal in 2019
+
+- pros:
+  - much easier to start now
+  - multiple implementations, geared towards devs, CI/CD
+- cons:
+  - the usual negatives
 ---
 
 # fuzzing won't save you
