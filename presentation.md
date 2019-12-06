@@ -58,6 +58,8 @@ are still issues now
 
 # take aways
 
+## no golden roads to security
+
 1. TINSTAAFL: formal tools & cryptography aren't panaceas 
 2. There is no golden road to ~~arithmetic~~ security
 3. Formally proven code fails, fancy crypto breaks
@@ -240,17 +242,95 @@ for state in m.ready_states:
   - multiple implementations, geared towards devs, CI/CD
 - cons:
   - the usual negatives
+- as we'll see: formally proven/verified code *can* fail 
+
+<!--
+
+- symbex & other formal techniques have trade offs
+- 
+
+-->
+
 ---
 
 # fuzzing won't save you
 
+![Eeyore](ToBeeyore.png)
+
+<!--
+
+so very often when we see symbex as a problem, we turn to fuzzing...
+
+-->
+
+---
+
+# fuzzing contra symbex
+![deniable symbex](deniable-symbex.png)
+
+_from http://deniable.org/reversing/symbolic-execution_
+
+---
+
+# fuzzing in 2016
+
+- SecLists
+- Radamsa
+- AFL
+- some exotic stuff like DART
+
+_https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
+
+---
+
+# fuzzing in 2019
+
+- those, plus
+- easily accessible grammar fuzzers
+  - Mozilla Dharma, various others
+- grey-box fuzzers
+  - ECLIPSER
+- other combinations of symbex + fuzzing
+  - concretize via fuzzing
+  - negate paths ala SAGE
+- property-based testing
+
+---
+
+# fuzzing in 2019
+
+<!--
+
+keeping with how I'm showing our tools, let's look at PBTs
+
+-->
+
+```
+contract TEST is NewCoin {
+  uint private initSupply;
+  address private alice = ...;
+  address private bob = ...;
+  address private eve = ...;
+
+  constructor() public {
+    balances[alice] = 10000;
+    balances[bob] = 10000;
+    balances[eve] = 10000;
+    initSupply = totalSupply_;
+  }
+  // the actual good stuff:
+  function echidna_test() public returns (bool) {
+    totalSupply_ = balances[alice] + balances[bob] + 
+    balances[eve];
+    return (initSupply == totalSupply_);
+  }
+}
+```
+
+
 ---
 
 # fancy crypto won't save you
-
----
-
-# no golden road to security
 
 ---
 
