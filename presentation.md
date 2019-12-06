@@ -277,6 +277,7 @@ _from http://deniable.org/reversing/symbolic-execution_
 - SecLists
 - Radamsa
 - AFL
+- QuickCheck (for Haskell)
 - some exotic stuff like DART
 
 _https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
@@ -293,7 +294,27 @@ _https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
 - other combinations of symbex + fuzzing
   - concretize via fuzzing
   - negate paths ala SAGE
-- property-based testing
+- **property-based testing**
+
+---
+
+# fuzzing in 2019
+
+<!-- 
+
+so what *is* property testing?
+
+-->
+
+- property-based testing is p popular now
+- allows developers to write simple properties that must hold
+  - `userIds <= 10000`
+  - `fromAddress != toAddress`  
+- simple to write, often within the same language
+- testing tool:
+  1. generates random calls to API w/ random data
+  2. shrinks random call graph to minimum
+  3. all to find combinations that violate properties
 
 ---
 
@@ -301,7 +322,9 @@ _https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
 
 <!--
 
-keeping with how I'm showing our tools, let's look at PBTs
+keeping with how I'm showing our tools, let's look at PBT in Echidna
+
+Talk about what we're attempting to do, how the test is repeatable, &c.
 
 -->
 
@@ -320,13 +343,23 @@ contract TEST is NewCoin {
   }
   // the actual good stuff:
   function echidna_test() public returns (bool) {
-    totalSupply_ = balances[alice] + balances[bob] + 
+    totalSupply_ = balances[alice] + balances[bob] +
     balances[eve];
     return (initSupply == totalSupply_);
   }
 }
 ```
+---
 
+# fuzzing in 2019
+
+- pros:
+  - can find many edge cases
+  - tools have become lightweight & easier to control
+- cons
+  - unlikely to randomly generate complex formats
+  - anything > pure random takes time
+- (more) ideal, combine constraint gen with fuzzing    
 
 ---
 
