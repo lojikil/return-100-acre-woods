@@ -403,7 +403,127 @@ contract TEST is NewCoin {
 - cons
   - unlikely to randomly generate complex formats
   - anything > pure random takes time
-- (more) ideal, combine constraint gen with fuzzing    
+- (more) ideal, combine constraint gen with fuzzing
+
+---
+
+# fuzzy failure
+
+- what you fuzz matters
+- but so does **how** you fuzz
+
+<!--
+
+Talk about the VM fuzz
+
+-->
+---
+
+<!--
+
+I've been  asked a few times if you can replace unit  tests with fuzzing
+
+No, no you cannot
+
+you're losing out on intent, what developers thought code should do, and you're attempting to automatically uncover hermaneutics of code...
+
+-->
+# i'm fuzzy on this one point
+
+- as an aside, fuzzing, symbex, &c don't replace tests
+  - tests shoul expected result, intent
+  - fuzzing shows potential edge cases
+  - symbex, absint show domain/codomain
+- both are useful 
+
+---
+
+# fancy crypto won't save you
+
+![ToBeeyore](ToBeeyore.png)
+
+---
+
+# crypto in 2016
+
+- mostly FIPS-140 types of stuff
+- sometimes a rec for removing SHA
+  - use PBKDF2, bcrypt, scrypt
+- pining to use SRP 
+
+---
+
+# crypto in 2019
+
+<!--
+
+in 2019, I work with real math people
+we have answers to the problems of 
+yesteryear, with real audits behind them...
+
+-->
+
+- work with actual cryptographers
+- lots and lots of math
+- better systems
+  - libsodium, tink 
+  - ~~SRP~~ various PAKEs
+  - Argon2
+  - Oblivious Functions
+- so everything is better... right?
+
+---
+
+# crypto in 2019
+
+<!--
+
+It turns out that most of the problems I see in cryptography are
+operational in nature
+
+-->
+
+- keys written to disk with `0777` or `0655`
+- keys in memory that an attacker can access
+- keys stored on GitHub
+- lots of incorrect applications
+  - signature? hash? who knows! 
+- must. use. all. the. keys.
+
+---
+
+<!--
+
+I'm not smart, and if I can see
+obvious flaws in the way you implemented things or use them,
+an attacker will too 
+
+-->
+
+# also, stop implementing your own crypto
+
+- I don't want to review it
+- it's probably wrong
+
+---
+
+# ALSO if it's REALLY new, don't use it
+
+<!--
+
+Even something as "well understood"
+as non-interactive zero-knowledge 
+proofs had a major bug in them
+
+Zcash had a counterfeit bug because
+of some advanced crypto that wasn't
+well understood at inception
+
+-->
+- you may not implement it correctly
+- the library isn't audited
+- we don't understand it
+- zk-SNARKs 
 
 ---
 
@@ -423,12 +543,60 @@ I think this is interesting, because there's been quite a few changes since 2016
 
 - mostly on prem
 - Windows, Trusted Solaris, Linux
-- 
+- some SELinux, some CAC access
+- occassional orchestration, CM 
+
+<!--
+
+in 2016 when I said OSs were terrible
+I was mostly working with this set.
+
+In some ways it was better: on prem 
+has many audit controls we might want
+and it also provides more 
+
+We'd also occassionally see an orchestration management system, more likely we'd see something like ansible or the like, just barely
+automating what folks were doing
+
+-->
+
 ---
 
-# fancy crypto won't save you
+# OSs in 2019
 
-![ToBeeyore](ToBeeyore.png)
+- lots of orchestration
+- almost 100% Linux
+- containers == more security... right?
+
+---
+
+# OSs in 2019
+
+<!--
+
+So, ignoring simple docker errors
+like devs choosing the wrong image
+
+we have quite a few potential expansions in our attack surface just from using a container...
+
+-->
+
+- ignoring simple docker failures
+- k8s: by default disabled seccomp
+  - since fixed 
+- docker: multiple vulns, often used w/o a KSM
+- gvisor: disabled seccomp
+
+---
+
+# OSs in 2019
+
+![container security](container-security.jpeg)
+
+- must pay attention to defaults
+- by themselves, not a security mechanism
+- not worse, but false sense of security
+
 
 ---
 
@@ -443,5 +611,49 @@ talk about
 - breaks in formally proven code, due to either missing the correct formalisms, or w/e
 - talk about misapplications of crypto vis-a-vis implementation complexity, incorrect application, &c.
 
+so we covered all the ways these 
+modern tools can fail, but there's still no guarantee that it's secure...
+
 -->
 
+---
+
+<!--
+
+there are many ways to still end up with issues, and you can't actually model all of the things, verify the people,&c. 
+
+-->
+
+# you still don't win
+
+- so you did everything right
+  - want a cookie? 
+- there are still a number of otherways to lose
+  - formally verify people?
+  - crypto your way around a hardware bug?
+  - SGX failures, k8s issues, &c. 
+
+---
+
+# the only winning move, is not to play
+
+- reduce your surface area
+- employ full range of:
+  - threat modeling
+  - maturity modeling
+  - traditional SAST/DAST
+  - fuzzing 
+  - design spec
+  - verification (appropos of your risk)
+
+---
+
+# and then you still die
+
+- someone commits prod keys to GH
+
+---
+
+# thanks!
+
+![Eeyore](ToBeeyore.png)
