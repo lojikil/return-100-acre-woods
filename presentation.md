@@ -342,6 +342,13 @@ _https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
 
 ---
 
+# a fuzzy aside
+
+- i still fine a ton of vulns with radamsa
+- `radamsa -v -o $SOMEPATH` is so stupidly effective
+
+---
+
 # fuzzing in 2019
 
 <!-- 
@@ -431,7 +438,7 @@ you're losing out on intent, what developers thought code should do, and you're 
 # i'm fuzzy on this one point
 
 - as an aside, fuzzing, symbex, &c don't replace tests
-  - tests shoul expected result, intent
+  - tests show expected result, intent
   - fuzzing shows potential edge cases
   - symbex, absint show domain/codomain
 - both are useful 
@@ -620,7 +627,11 @@ modern tools can fail, but there's still no guarantee that it's secure...
 
 <!--
 
-there are many ways to still end up with issues, and you can't actually model all of the things, verify the people,&c. 
+there are many ways to still end up with issues, and you can't actually model all of the things, verify the people,&c.
+
+you're also still assuming some level
+of inherited controls when you have
+these sorts of systems...
 
 -->
 
@@ -649,6 +660,12 @@ there are many ways to still end up with issues, and you can't actually model al
 ---
 
 # and then you still die
+
+<!--
+
+even with DLP/leak systems, users will work around what you've thought of.
+
+-->
 
 - someone commits prod keys to GH
 
