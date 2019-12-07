@@ -62,7 +62,7 @@ are still issues now
 
 1. TINSTAAFL: formal tools & cryptography aren't panaceas 
 2. There is no golden road to ~~arithmetic~~ security
-3. Formally proven code fails, fancy crypto breaks
+3. Formally proven code fails, fancy crypto breaks, OS setups can multiply problems 
 
 ---
 
@@ -253,6 +253,49 @@ for state in m.ready_states:
 
 ---
 
+# formally a failure
+
+<!--
+
+I think the thing that bothers me most is that folks think 
+
+formally verified 
+
+==
+
+secure
+
+your assurance is only as good as your spec/tests and your, and your time invested is only as much as your risk/threat model allows.
+
+There's a reason why NASA projects cost so much...
+-->
+
+- only as good as your spec/verification
+  - spec bugs
+  - under spec
+  - not spec'ing the right thing
+- can't test everything
+
+---
+
+# formally a failure
+
+- tested code != prod code
+  - Ariane 5 rocket
+- things look positive
+  - client proved with `uint`, then switched to `int`
+- lots of blockchain examples
+
+<!--
+
+some of the worst examples we have are from formally proven blockchain projects
+
+We, Consensys, many firms see code that is formally proven have severe bugs in them. We only test what we can think of.
+
+-->
+
+---
+
 # fuzzing won't save you
 
 ![Eeyore](ToBeeyore.png)
@@ -277,7 +320,8 @@ _from http://deniable.org/reversing/symbolic-execution_
 - SecLists
 - Radamsa
 - AFL
-- QuickCheck (for Haskell)
+- QuickCheck (for Haskell), Hypothesis (Python)
+  - available, but unused 
 - some exotic stuff like DART
 
 _https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
@@ -294,7 +338,7 @@ _https://patricegodefroid.github.io/public_psfiles/talk-pldi2005.pdf_
 - other combinations of symbex + fuzzing
   - concretize via fuzzing
   - negate paths ala SAGE
-- **property-based testing**
+- **property-based testing** is much more common
 
 ---
 
@@ -363,11 +407,34 @@ contract TEST is NewCoin {
 
 ---
 
+# operating systems won't save you
+
+<!--
+
+I think this is interesting, because there's been quite a few changes since 2016
+
+-->
+
+![ToBeeyore](ToBeeyore.png)
+
+---
+
+# OSs in 2016
+
+- mostly on prem
+- Windows, Trusted Solaris, Linux
+- 
+---
+
 # fancy crypto won't save you
+
+![ToBeeyore](ToBeeyore.png)
 
 ---
 
 # even if you get those things right, you don't win
+
+![ToBeeyore](ToBeeyore.png)
 
 <!--
 
